@@ -40,3 +40,9 @@ gulp.task('compass', function() {
 });
 
 gulp.task('default', ['coffee', 'js', 'compass']);
+
+gulp.task('watch', function() {
+    gulp.watch(coffeeSources, ['coffee']);
+    gulp.watch(jsSourses, ['js']);
+    gulp.watch('components/sass/*.scss', ['compass']);
+});
