@@ -70,7 +70,7 @@ var pixgrid = function() {
             }
         }, !1);
     }
-}();
+}(); 
 var $, fill;
 
 $ = require('jquery');

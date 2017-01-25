@@ -19,7 +19,7 @@ var env,
     outputDir,
     sassStyle;
 
-env = process.env.NODE_ENV || 'production';
+env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') { 
     outputDir = 'builds/development/';
@@ -74,6 +74,11 @@ gulp.task('html', function() {
     .pipe(gulpif(env === 'production', gulp.dest(outputDir)))
     .pipe(connect.reload())
 });
+gulp.task('images', function() {
+    gulp.src('builds/development/images/**/*.*')
+    .pipe(gulpif(env === 'production', gulp.dest('builds/production/images/')))
+    .pipe(connect.reload())
+})
 
 gulp.task('json', function(){
     gulp.src('builds/development/js/*.json')
@@ -88,6 +93,7 @@ gulp.task('watch', function() {
     gulp.watch('components/sass/*.scss', ['compass']);
     gulp.watch('builds/development/*.html', ['html']);
     gulp.watch(jsonSourses, ['json']);
+    gulp.watch('builds/development/images/**/*.*', ['images']);
 });
 
 gulp.task('connect', function() {
@@ -99,7 +105,8 @@ gulp.task('connect', function() {
 
 gulp.task('default', [
     'json', 
-    'html', 
+    'html',
+    'images', 
     'coffee', 
     'js', 
     'compass', 
